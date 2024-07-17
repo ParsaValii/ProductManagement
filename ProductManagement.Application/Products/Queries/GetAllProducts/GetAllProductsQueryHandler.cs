@@ -14,8 +14,9 @@ public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQueryReq
         _mapper = mapper;
         _productRepository = productRepository;
     }
-    public Task<List<GetAllProductsQueryResponse>> Handle(GetAllProductsQueryRequest request, CancellationToken cancellationToken)
+    public async Task<List<GetAllProductsQueryResponse>> Handle(GetAllProductsQueryRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var products = await _productRepository.GetAllAsync();
+        return _mapper.Map<List<GetAllProductsQueryResponse>>(products);
     }
 }

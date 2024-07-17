@@ -18,6 +18,8 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommandR
 
     public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var product = _mapper.Map<Product>(request);
+        await _productRepository.UpdateAsync(product);
+        return new UpdateProductCommandResponse(true);
     }
 }
