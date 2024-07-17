@@ -18,6 +18,7 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQueryReq
 
     public async Task<GetProductByIdQueryResponse> Handle(GetProductByIdQueryRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var product = await _productRepository.GetByIdAsync(request.Id);
+        return _mapper.Map<GetProductByIdQueryResponse>(product);
     }
 }

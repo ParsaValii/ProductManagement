@@ -17,6 +17,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommandR
     
     public async Task<DeleteProductCommandResponse> Handle(DeleteProductCommandRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _productRepository.DeleteAsync(request.Id);
+        return new DeleteProductCommandResponse(true);
     }
 }
