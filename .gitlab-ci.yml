@@ -8,14 +8,11 @@ variables:
   PROJECT_NAME: "NadinSoft"
 
 before_script:
-  - apt-get update
-  - apt-get install -y wget
+  - apt-get update -qq && apt-get install -qq -y wget apt-transport-https
   - wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   - dpkg -i packages-microsoft-prod.deb
-  - apt-get update
-  - apt-get install -y apt-transport-https
-  - apt-get update
-  - apt-get install -y dotnet-sdk-$DOTNET_VERSION
+  - apt-get update -qq
+  - apt-get install -qq -y dotnet-sdk-$DOTNET_VERSION
 
 build:
   stage: build
@@ -28,6 +25,8 @@ build:
 test:
   stage: test
   script:
+    - dotnet restore 
+    - dotnet build --configuration Debug
     - dotnet test --no-build --verbosity normal 
   only:
     - main
